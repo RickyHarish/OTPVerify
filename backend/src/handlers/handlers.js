@@ -6,10 +6,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host:process.env.HOST,
+    service:process.env.SERVICE,
+    post:Number(process.env.EMAIL_PORT),
+    secure:Boolean(process.env.SECURE),
     auth: {
-        user: "aditikumari5281@gmail.com", // aditi sing email
-        pass: "uhxkmfnqbgioulql" //p[ass]
+        user: process.env.USER, 
+        pass: process.env.PASS 
     }
 })
 
@@ -29,7 +32,7 @@ export const signupHandler = async (req, res) => {
 
         // Send OTP via email
         const mailOptions = {
-            from: "aditikumari5281@gmail.com", //apka email
+            from: process.env.USER, 
             to: email,
             subject: "Thanks for Signing up in Fruitzz...    Here is your OTP code",
             text: `Hey ${username} welcome to the Fruitzz... , Your OTP for verification code is ${otp}`
